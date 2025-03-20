@@ -1,4 +1,4 @@
-# Ignore and compiled files
+# Ignore docx and compiled files
 __pycache__/
 SportMatrix_Docx/
 
