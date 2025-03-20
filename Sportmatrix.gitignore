@@ -1,0 +1,15 @@
+# Ignore and compiled files
+__pycache__/
+SportMatrix_Docx/
+
+# Ignore dataset files (if they contain sensitive or large data)
+data.xlsx
+data0.xlsx
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore virtual environments
+sportmatrix_env/
+

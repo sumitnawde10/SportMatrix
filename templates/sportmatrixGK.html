@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportMatrix</title> 
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        overflow-x: hidden;
+        background: linear-gradient(135deg, #ffffff 50%, #53f0f0 50%);
+    }
+    
+    header {
+        background-color: #1a1a1a;
+        color: #fff;
+        padding: 2rem;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    
+    .nav-links a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 1.5rem;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+        color: #0af4e8;
+    }
+    
+ /* Main Section */
+main {
+    padding: 7rem 2rem 2rem;
+    min-height: calc(100vh - 100px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 730px;
+     margin-top: 50px;
+}
+
+/* Form Section */
+.form-section {
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+   
+}
+
+/* Form Container */
+.player-form {
+    background-color: #e0e0e0; /* Light gray background */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for box effect */
+    width: 100%;
+    max-width: 500px;
+    display: grid;
+    gap: 1.5rem; /* Space between form fields */
+    border-radius: 30px;
+
+}
+
+/* Form Group */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form Labels */
+label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+/* Form Inputs */
+input {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+/* Input Focus Effect */
+input:focus {
+    border-color: #53f0f0da; /* Light blue border on focus */
+    outline: none;
+}
+
+/* Submit Button */
+button {
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    background-color:#1a1a1a; /* Button background color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Button Hover Effect */
+button:hover {
+    background-color: #53d1f0;
+}
+
+/* Adjusting the Form to be Centered */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    
+    .cta-button {
+        display: inline-block;
+        background-color: #0af4e8;
+        color: #1a1a1a;
+        padding: 0.8rem 2rem;
+        font-size: 1.4rem;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(6, 242, 183, 0.985);
+    }
+   
+
+    footer {
+        background-color: #1a1a1a;
+        color: #fff;
+        text-align: center;
+        padding: 2rem;
+    }
+</style>
+
+</head>
+<body>
+  <header>
+    <nav>
+       <div class="logo">SportMatrix</div>
+      <div class="nav-links">
+        <a href="/" id="home-link">Home</a>
+        <a href="#footer" id="about-link">About</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="form-section"></section>
+        
+    <form class="player-form" action="/submit" method="POST">
+        <input type="hidden" name="form_type" value="GK">
+    <!-- Player Name -->
+    <div class="form-group">
+        <label for="name">Player Name:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <!-- Age -->
+    <div class="form-group">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+    </div>
+    <!-- Height -->
+    <div class="form-group">
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" name="height" required>
+    </div>
+    <!-- Weight -->
+    <div class="form-group">
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" name="weight" required>
+    </div>
+    <!-- Passing -->
+    <div class="form-group">
+        <label for="passing">Passing (0-100):</label>
+        <input type="number" id="passing" name="passing" required min="0" max="100">
+    </div>
+    <!-- Shooting -->
+    <div class="form-group">
+        <label for="shooting">Shooting (0-100):</label>
+        <input type="number" id="shooting" name="shooting" required min="0" max="100">
+    </div>
+    <!-- Dribbling -->
+    <div class="form-group">
+        <label for="dribbling">Dribbling (0-100):</label>
+        <input type="number" id="dribbling" name="dribbling" required min="0" max="100">
+    </div>
+    <!-- Pace -->
+    <div class="form-group">
+        <label for="pace">Pace (0-100):</label>
+        <input type="number" id="pace" name="pace" required min="0" max="100">
+    </div>
+    <!-- Physical -->
+    <div class="form-group">
+        <label for="physical">Physical (0-100):</label>
+        <input type="number" id="physical" name="physical" required min="0" max="100">
+    </div>
+    <!-- Defending -->
+    <div class="form-group">
+        <label for="defending">Defending (0-100):</label>
+        <input type="number" id="defending" name="defending" required min="0" max="100">
+    </div>
+    <!-- Submit Button -->
+    <div class="form-group">
+        <button type="submit">Submit</button>
+    </div>
+</form>
+</section>
+</main>
+   
+    
+    
+    <footer id="footer">
+        <p>&copy; 2024 SportMatrix. All rights reserved.</p>
+        <p>Disclaimer: The sports analysis provided by SportMatrix is based on current player performance data and statistical algorithms. While we strive for accuracy, all recommendations should be taken as general guidance. Individual player development may vary, and factors beyond performance statistics can influence outcomes.</p>
+        <p>Help: sportmatrix11@gmail.com</p>
+        
+    </footer>
+
+    <script>
+        document.getElementById('about-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('footer').scrollIntoView({behavior: 'smooth'});
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportMatrix</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #ffffff 50%, #53f0f0 50%);
+        text-align: center;
+    }
+
+    header {
+        background-color: #1a1a1a;
+        color: #fff;
+        padding: 2.4rem;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .nav-links a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 1.5rem;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+        color: #0af4e8;
+    }
+
+    h1 {
+        color: navy;
+        margin-top: 50px;
+        font-size: 2.5rem;
+    }
+
+    /* Flex container for Table (Left) and Scatter Plot (Right) */
+    .content-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 3rem;
+        width: 90%;
+        margin: auto;
+    }
+
+    /* Table container (Left Side) */
+    .table-container {
+        flex: 1;
+        max-width: 50%;
+        text-align: center;
+    }
+
+    /* Table styling */
+    table {
+        width: 100%;
+        margin: 10px auto;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        font-size: 1.2rem;
+    }
+
+    th {
+        background: #0af4e8;
+        color: black;
+    }
+
+    tr:nth-child(even) {
+        background: #f2f2f2;
+    }
+
+    tr:hover {
+        background: #e0f7fa;
+        transition: 0.3s;
+    }
+
+    .rank {
+        font-weight: bold;
+        color: navy;
+    }
+
+    .name {
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Scatter Plot Container (Right Side) */
+    .scatter-container {
+        flex: 1;
+        max-width: 50%;
+        text-align: center;
+        padding-left: 40px;
+        padding-top: 40px;
+    }
+    .scatter-container h2 {
+        margin-bottom: 20px;
+    }    
+    .scatter-container img {
+        max-width: 110%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Delete Button */
+    .delete-button {
+        display: inline-block;
+        background-color: #1a1a1a;
+        color: rgb(249, 244, 244);
+        padding: 0.8rem 2rem;
+        font-size: 1.4rem;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .delete-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 12px rgba(253, 255, 254, 0.98);
+    }
+
+    footer {
+        background-color: #1a1a1a;
+        color: #fff;
+        text-align: center;
+        padding: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+    <nav>
+      <div class="logo">SportMatrix</div>
+      <div class="nav-links">
+        <a href="/" id="home-link">Home</a>
+        <a href="#footer" id="about-link">About</a>
+      </div>
+    </nav>
+</header>
+
+<h1> Player Rankings - Team Lineup </h1>
+
+<!-- Flexbox Layout: Table (Left) & Scatter Plot (Right) -->
+<div class="content-container">
+    <!-- Table on the Left -->
+    <div class="table-container">
+        {% if rankings %}
+            {% for form_type, players in rankings.items() %}
+                <h2> Top {{ players|length }} {{ form_type }} Players </h2>
+                <table>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Selection Score</th>
+                        <th>Potential Score</th>
+                        <th>Performance Score</th>
+                    </tr>
+                    {% for index, player in players.iterrows() %}
+                    <tr>
+                        <td class="rank">{{ player['Final Rank']|int }}</td>
+                        <td class="name">{{ player['Name'] }}</td>
+                        <td>{{ player['Hybrid Score']|round(2) }}</td>
+                        <td>{{ player['Selection_Score']|round(2) }}</td>
+                        <td>{{ (player['TOPSIS_Score'] * 100)|round(2) }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% endfor %}
+        {% else %}
+            <p>No data available. Please add player data first.</p>
+        {% endif %}
+        
+        <!-- Delete Button Below Tables -->
+        <button class="delete-button" onclick="deleteRecords()">Delete All Records</button> 
+    </div>
+
+   
+<div class="scatter-container">
+    <h2>Selection Score Scatter Plot</h2>
+    {% if plot_url %}
+        <img src="data:image/png;base64,{{ plot_url }}" alt="Hybrid Score Scatter Plot">
+    {% else %}
+        <p style="color: red;">⚠ No plot available. Please ensure player data exists.</p>
+    {% endif %}
+</div>
+
+</div>
+
+<footer id="footer">
+    <p>&copy; 2024 SportMatrix. All rights reserved.</p>
+    <p>Disclaimer: The sports analysis provided by SportMatrix is based on current player performance data and statistical algorithms. While we strive for accuracy, all recommendations should be taken as general guidance. Individual player development may vary, and factors beyond performance statistics can influence outcomes.</p>
+    <p>Help: sportmatrix11@gmail.com</p>
+</footer>
+
+<script>
+    document.getElementById('about-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('footer').scrollIntoView({behavior: 'smooth'});
+    });
+
+    function deleteRecords() {
+        if (confirm("Are you sure you want to delete all records? This action cannot be undone.")) {
+            fetch('/delete-records', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                location.reload();  // Refresh the page to reflect deleted records
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    }
+</script>
+
+</body>
+</html>

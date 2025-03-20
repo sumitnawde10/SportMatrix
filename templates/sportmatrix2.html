@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportMatrix</title> 
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        overflow-x: hidden;
+        background: linear-gradient(135deg, #ffffff 50%, #53f0f0 50%);
+    }
+    
+    header {
+        background-color: #1a1a1a;
+        color: #fff;
+        padding: 2rem;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    
+    .nav-links a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 1.5rem;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+        color: #0af4e8;
+    }
+    
+ main {
+        padding: 7rem 2rem 2rem;
+        min-height: calc(100vh - 100px);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .image-container {
+            margin-left: auto; /* This will push the image container to the right */
+            display: flex; /* Ensures proper alignment */
+    .hero-image {
+                width: 600px; /* Ensures the image resizes properly */
+                 /* Keeps the image's aspect ratio */
+                float: right; /* Floats the image to the right */
+            }
+        }
+        
+        
+        
+    }
+    
+    .hero {
+        padding-left: 50px;
+    }
+    
+    .hero h1 {
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+    }
+    
+    .hero p {
+        margin-bottom: 30px;
+        font-size: 1.5rem;
+    }
+    
+    .cta-button {
+        display: inline-block;
+        background-color: #0af4e8;
+        color: #1a1a1a;
+        padding: 0.8rem 2rem;
+        font-size: 1.4rem;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-top: 650px;
+        margin-left: -360px;
+    }
+    
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(6, 242, 183, 0.985);
+    }
+
+    footer {
+        background-color: #1a1a1a;
+        color: #fff;
+        text-align: center;
+        padding: 2rem;
+    }
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* 5 columns to spread players */
+        grid-template-rows: repeat(4, 100px); /* 4 rows for player lines */
+        gap: 20px;
+        justify-items: center;
+        align-items: center;
+        padding: 2rem;
+        background-color: #f4f4f4;
+        margin-left: 100px;
+        border-radius: 100px;
+        
+    }
+    .player {
+        width: 80px;
+        height: 80px;
+        background-color: #007BFF;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        font-size: 1rem;
+        text-decoration: none; /* Remove underline from links */
+        transition: background-color 0.3s;
+        border-color: #1a1a1a;
+    }
+
+    .player:hover {
+        background-color: #0056b3; /* Change color on hover */
+    }
+
+    /* Specific column and row placements for players in a 4-3-3 formation */
+    .goalkeeper { grid-column: 3; grid-row: 4; }
+    .defender { grid-row: 3; }
+    .midfielder { grid-row: 2; }
+    .forward { grid-row: 1; }
+
+    .defender1 { grid-column: 1; }
+    .defender2 { grid-column: 2; }
+    .defender3 { grid-column: 4; }
+    .defender4 { grid-column: 5; }
+
+    .midfielder1 { grid-column: 2; }
+    .midfielder2 { grid-column: 3; }
+    .midfielder3 { grid-column: 4; }
+
+    .forward1 { grid-column: 2; }
+    .forward2 { grid-column: 3; }
+    .forward3 { grid-column: 4; }
+
+    /* Specific column and row placements for players in a 4-3-3 formation */
+    .goalkeeper {
+        grid-column: 3; /* Center the goalkeeper */
+        grid-row: 4;    /* Goalkeeper at the bottom */
+    }
+
+    .defender {
+        grid-row: 3; /* Defenders on the 3rd row */
+    }
+
+    .midfielder {
+        grid-row: 2; /* Midfielders on the 2nd row */
+    }
+
+    .forward {
+        grid-row: 1; /* Forwards on the 1st row */
+    }
+
+    /* Positioning for each defender */
+    .defender1 { grid-column: 1; }
+    .defender2 { grid-column: 2; }
+    .defender3 { grid-column: 4; }
+    .defender4 { grid-column: 5; }
+
+    /* Positioning for each midfielder */
+    .midfielder1 { grid-column: 2; }
+    .midfielder2 { grid-column: 3; }
+    .midfielder3 { grid-column: 4; }
+
+    /* Positioning for each forward */
+    .forward1 { grid-column: 2; }
+    .forward2 { grid-column: 3; }
+    .forward3 { grid-column: 4; }
+
+
+    .Para {
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        font-size: 1.5rem;
+        margin-bottom: 100px;
+        margin-left: 120px;
+        display: block;
+    }
+    
+</style>
+
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">SportMatrix</div>
+      <div class="nav-links">
+        <a href="/" id="home-link">Home</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="team-grid">
+        <!-- Players -->
+        <a href="/gk" class="player goalkeeper" id="goalkeeper">GK</a>
+    
+        <a href="/def" class="player defender defender1" id="defender1">LB</a>
+        <a href="/def" class="player defender defender2" id="defender2">CB</a>
+        <a href="/def" class="player defender defender3" id="defender3">CB</a>
+        <a href="/def" class="player defender defender4" id="defender4">RB</a>
+    
+        <a href="/mid" class="player midfielder midfielder1" id="midfielder1">CM</a>
+        <a href="/mid" class="player midfielder midfielder2" id="midfielder2">CAM</a>
+        <a href="mid" class="player midfielder midfielder3" id="midfielder3">CM</a>
+    
+        <a href="/atc" class="player forward forward1" id="forward1">LW</a>
+        <a href="/atc" class="player forward forward2" id="forward2">ST</a>
+        <a href="/atc" class="player forward forward3" id="forward3">RW</a>
+    </div>
+    <div class="button-container">
+        <a href="/Teamlineup" class="cta-button">Team Lineup</a>
+    </div>
+    
+    <div class="image-container">
+        <img src="https://media.istockphoto.com/id/1302783780/vector/soccer-player-kicking-ball-abstract-blue-vector-silhouette-side-view.jpg?s=612x612&w=0&k=20&c=xW1opotaV85CstE8NfBprp8T_8w53yCnsKVkxGSeWbY=" alt="Hero Image" class="hero-image">
+    </div>
+    </main>
+   
+    <!-- <p class="Para">Elevate your game with cutting-edge sports analytics</p> -->
+    
+    <footer id="footer">
+        <p>&copy; 2024 SportMatrix. All rights reserved.</p>
+        <p>Disclaimer: The sports analysis provided by SportMatrix is based on current player performance data and statistical algorithms. While we strive for accuracy, all recommendations should be taken as general guidance. Individual player development may vary, and factors beyond performance statistics can influence outcomes.</p>
+        <p>Help: sportmatrix11@gmail.com</p>
+        
+    </footer>
+
+    <script>
+        document.getElementById('about-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('footer').scrollIntoView({behavior: 'smooth'});
+        });
+       
+        const players = [
+        { id: "goalkeeper", name: "GK", url: "goalkeeper.html" },
+        { id: "defender1", name: "DEF 1", url: "defender1.html" },
+        { id: "defender2", name: "DEF 2", url: "defender2.html" },
+        { id: "defender3", name: "DEF 3", url: "defender3.html" },
+        { id: "defender4", name: "DEF 4", url: "defender4.html" },
+        { id: "midfielder1", name: "MID 1", url: "midfielder1.html" },
+        { id: "midfielder2", name: "MID 2", url: "midfielder2.html" },
+        { id: "midfielder3", name: "MID 3", url: "midfielder3.html" },
+        { id: "forward1", name: "FW 1", url: "forward1.html" },
+        { id: "forward2", name: "FW 2", url: "forward2.html" },
+        { id: "forward3", name: "FW 3", url: "forward3.html" }
+    ];
+
+    players.forEach(player => {
+        const playerElement = document.getElementById(player.id);
+        playerElement.href = player.url;
+        playerElement.textContent = player.name;
+    });
+        
+            // Function to update player labels dynamically
+            function updatePlayerPositions() {
+                for (const [id, position] of Object.entries(players)) {
+                    document.getElementById(id).textContent = position;
+                }
+            }
+        
+            // Call function to update player positions on page load
+            updatePlayerPositions();
+        
+    </script>
+</body>
+</html>

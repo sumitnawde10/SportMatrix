@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SportMatrix</title> 
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+
+  body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #ffffff 50%, #53f0f0 50%);
+  }
+
+  header {
+      background-color: #1a1a1a;
+      color: #fff;
+      padding: 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+  }
+
+  nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .logo {
+      font-size: 2rem;
+      font-weight: bold;
+  }
+
+  .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover {
+      color: #0af4e8;
+  }
+
+  main {
+      padding: 7rem 2rem 2rem;
+      min-height: calc(100vh - 100px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+  }
+
+  .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      margin-top: 20px;
+      color: rgba(0, 0, 128, 1) ;
+  }
+
+  .hero p {
+      margin-bottom: 30px;
+      font-size: 1.5rem;
+      color: rgba(0, 0, 128, 1) ;
+  }
+
+  .player-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      max-width: 1300px;
+      width: 100%;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .player-details {
+      font-size: 3.5rem;
+      margin-right: 2rem;
+      flex: 1;
+      text-align: center;
+  }
+
+  .player-details p {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+  }
+
+  .betterment-notes {
+      font-size: 2rem;
+      color: rgba(0, 0, 128, 1);
+      text-align: center;
+      margin-top: 1.5rem;
+  }
+
+  #chart-container {
+      flex: 1;
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem 0;
+  }
+
+  footer {
+      background-color: #1a1a1a;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+  }
+
+  .overall {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: bold;
+  }
+
+  .attribute-section {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+  }
+
+  #analysis-message {
+      color: rgba(0, 0, 128, 1) ;
+      font-size: 1.5rem;
+      text-align: center;
+  }
+</style>
+
+<!-- Include Chart.js from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+
+<header>
+<nav>
+  <div class="logo">SportMatrix</div>
+  <div class="nav-links">
+      <a href="/" id="home-link">Home</a>
+      <a href="#footer" id="about-link">About</a>
+  </div>
+</nav>
+</header>
+
+<main>
+<div class="hero">
+  <h1>Player Performance</h1>
+  <p>Here is the Matrix analysis of the player:</p>
+</div>
+
+<div class="player-card">
+  <!-- Player details on the top -->
+  <div class="player-details">
+      <h2>{{ player['Name'] }}</h2>
+      <p><strong>Base position:</strong> {{ player['Form Type'] }}</p>
+      <p><strong>Age:</strong> {{ player['Age'] }}</p>
+      <p><strong>Height:</strong> {{ player['Height'] }} cm</p>
+      <p><strong>Weight:</strong> {{ player['Weight'] }} kg</p>
+      <p><strong>BMI:</strong> {{ (player['Weight'] / ((player['Height']/100) ** 2)) | round(2) }} kg/m²</p>
+  </div>
+
+  <!-- Bar chart and overall score -->
+  <div id="chart-container">
+      <p class="overall">Overall: {{ overall_score }} / 100</p>
+      <canvas id="playerAttributesChart"></canvas>
+  </div>
+
+  <!-- Attribute section displaying Weak and Best attributes -->
+  <div class="attribute-section" id="weak-attributes">
+      <strong>Weak Attributes: </strong><span id="weak-attributes-list"></span>
+  </div>
+
+  <div class="attribute-section" id="best-attributes">
+      <strong>Best Attributes: </strong><span id="best-attributes-list"></span>
+  </div>
+
+  <!-- Betterment Notes below the graph -->
+  <div class="betterment-notes">
+      <h3>Betterment Notes</h3>
+      <p id="analysis-message"></p>
+  </div>
+</div>
+</main>
+
+<footer id="footer">
+<p>&copy; 2024 SportMatrix. All rights reserved.</p>
+<p>Disclaimer: The sports analysis provided by SportMatrix is based on current player performance data and statistical algorithms. While we strive for accuracy, all recommendations should be taken as general guidance. Individual player development may vary, and factors beyond performance statistics can influence outcomes.</p>
+<p>Help: sportmatrix11@gmail.com</p>
+</footer>
+
+<!-- Script to create the bar chart and calculate the overall score -->
+<script>
+// Get player attribute data from Flask (passed via template rendering)
+const playerData = {
+  passing: {{ player['Passing'] }},
+  shooting: {{ player['Shooting'] }},
+  dribbling: {{ player['Dribbling'] }},
+  pace: {{ player['Pace'] }},
+  physical: {{ player['Physical'] }},
+  defending: {{ player['Defending'] }}
+};
+
+// Analysis thresholds for the form type
+const thresholds = {
+  passing: {{ thresholds['Passing'] }},
+  shooting: {{ thresholds['Shooting'] }},
+  dribbling: {{ thresholds['Dribbling'] }},
+  pace: {{ thresholds['Pace'] }},
+  physical: {{ thresholds['Physical'] }},
+  defending: {{ thresholds['Defending'] }}
+};
+
+// Calculate the overall score as an average of the player attributes
+const overallScore = (
+  playerData.passing +
+  playerData.shooting +
+  playerData.dribbling +
+  playerData.pace +
+  playerData.physical +
+  playerData.defending
+) / 6;
+
+// Update the overall score display
+document.querySelector('.overall').textContent = `Overall: ${overallScore.toFixed(2)} `;
+
+// Data and labels for the chart
+const labels = ['Passing', 'Shooting', 'Dribbling', 'Pace', 'Physical', 'Defending'];
+const data = [playerData.passing, playerData.shooting, playerData.dribbling, playerData.pace, playerData.physical, playerData.defending];
+
+// Separate weak and best attributes
+const weakAttributes = [];
+const bestAttributes = [];
+
+for (const [stat, value] of Object.entries(playerData)) {
+  // Compare the player's attribute to the threshold based on form type
+  if (value < thresholds[stat.toLowerCase()]) {
+      weakAttributes.push(stat.charAt(0).toUpperCase() + stat.slice(1));
+  } else {
+      bestAttributes.push(stat.charAt(0).toUpperCase() + stat.slice(1));
+  }
+}
+
+
+
+// Update Weak and Best attributes display
+document.getElementById('weak-attributes-list').textContent = weakAttributes.join(', ');
+document.getElementById('best-attributes-list').textContent = bestAttributes.join(', ');
+
+// Chart color based on analysis
+const backgroundColors = labels.map((label) => {
+  const stat = label.toLowerCase();
+  return playerData[stat] < thresholds[stat] ? 'rgba(54, 54, 235, 0.8)' : 'rgba(54, 162, 235, 0.6)';
+});
+
+// Create the bar chart
+const ctx = document.getElementById('playerAttributesChart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+      labels: labels,
+      datasets: [{
+          label: 'Player Attributes',
+          data: data,
+          backgroundColor: 'rgba(54, 162, 235, 0.6)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+      }]
+  },
+  options: {
+      scales: {
+          y: {
+              beginAtZero: true,
+              max: 100  // Assuming player attributes are scored out of 100
+          }
+      }
+  }
+});
+
+// Detailed analysis message
+const analysisMessage = [];
+weakAttributes.forEach((label) => {
+  analysisMessage.push(`${label}: For the following position in futher games you need improvement for better performance  `);
+});
+
+const messageElement = document.getElementById('analysis-message');
+
+// Clear previous content
+messageElement.innerHTML = '';
+
+if (analysisMessage.length > 0) {
+  // Create the main message
+  const mainMessage = document.createElement('p');
+  mainMessage.textContent = `Your stats should be improved in this consideration`;
+
+  // Create a list to display the messages
+  const ul = document.createElement('ul');
+
+  analysisMessage.forEach(area => {
+    const li = document.createElement('li');
+    li.textContent = area; // Set the text for each list item
+    ul.appendChild(li); // Append the list item to the unordered list
+  });
+
+  // Create the suggestion message
+  const suggestionMessage = document.createElement('p');
+  suggestionMessage.textContent = 'Consider improving in these skills for overall martix performance.';
+
+  // Append the main message, the list, and the suggestion message to the message element
+  messageElement.appendChild(mainMessage);
+  messageElement.appendChild(ul);
+  messageElement.appendChild(suggestionMessage);
+} else {
+  messageElement.textContent = 'Your performance on the given matrix attribute analysis is well in all areas! Have great game';
+}
+
+</script>
+</body>
+</html>

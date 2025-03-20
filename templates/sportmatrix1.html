@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportMatrix</title> 
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        overflow-x: hidden;
+        background: linear-gradient(135deg, #ffffff 50%, #53f0f0 50%);
+    }
+    
+    header {
+        background-color: #1a1a1a;
+        color: #fff;
+        padding: 2rem;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    
+    .nav-links a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 1.5rem;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+        color: #0af4e8;
+    }
+    
+ main {
+        padding: 7rem 2rem 2rem;
+        min-height: calc(100vh - 100px);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .image-container {
+            margin-left: auto; /* This will push the image container to the right */
+            display: flex; /* Ensures proper alignment */
+        }
+        
+        .hero-image {
+            max-width: 100%; /* Ensures the image resizes properly */
+            height: auto; /* Keeps the image's aspect ratio */
+            float: right; /* Floats the image to the right */
+        }
+    }
+    
+    .hero {
+        padding-left: 50px;
+    }
+    
+    .hero h1 {
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+    }
+    
+    .hero p {
+        margin-bottom: 30px;
+        font-size: 1.5rem;
+    }
+    
+    .cta-button {
+        display: inline-block;
+        background-color: #0af4e8;
+        color: #1a1a1a;
+        padding: 0.8rem 2rem;
+        font-size: 1.4rem;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(6, 242, 183, 0.985);
+    }
+   
+
+    footer {
+        background-color: #1a1a1a;
+        color: #fff;
+        text-align: center;
+        padding: 2rem;
+    }
+</style>
+
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">SportMatrix</div>
+      <div class="nav-links">
+        <a href="#footer" id="about-link">About</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Welcome to SportMatrix</h1>
+      <p>Elevate your game with cutting-edge sports analytics</p>
+      <a href ="/addplayer" class="cta-button">Add Player</a>
+    </section>
+    <div class="image-container">
+        <img src="https://media.istockphoto.com/id/998509746/vector/football-player-kicking-ball-abstract-vector-drawing-soccer-athlete-isolated-silhouette-side.jpg?s=612x612&w=0&k=20&c=7mFG1jAeRyBta4sEVqRK-CaMLUIoslW7YiwRKP5TERE=" alt="Hero Image" class="hero-image">
+    </div>
+    </main>
+   
+    
+    
+    <footer id="footer">
+        <p>&copy; 2024 SportMatrix. All rights reserved.</p>
+        <p>Disclaimer: The sports analysis provided by SportMatrix is based on current player performance data and statistical algorithms. While we strive for accuracy, all recommendations should be taken as general guidance. Individual player development may vary, and factors beyond performance statistics can influence outcomes.</p>
+        <p>Help: sportmatrix11@gmail.com</p>
+        
+    </footer>
+
+    <script>
+        document.getElementById('about-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('footer').scrollIntoView({behavior: 'smooth'});
+        });
+    </script>
+</body>
+</html>
