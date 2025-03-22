@@ -7,10 +7,10 @@ import pandas as pd
 import numpy as np
 from sklearn.tree import DecisionTreeRegressor
 import matplotlib
-matplotlib.use('Agg')  # Fix for Flask server
+matplotlib.use('Agg')  # Uses 'Agg'(anti gain geometry) backend to generate plots without requiring a GUI (fix for Flask)
 import matplotlib.pyplot as plt
-import io
-import base64
+import io  # Handles input/output operations, used to store plots in memory
+import base64  # Converts plots to Base64 format for embedding in web pages
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
 ####----------------------------------------------------------------------------------------------------------------
@@ -18,13 +18,13 @@ from sklearn.metrics import mean_absolute_error
 # Get the absolute path to the current directory and create the Excel file there
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 EXCEL_FILE = os.path.join(BASE_DIR, 'data.xlsx')
-
+# initialize the Flask app
 app = Flask(__name__)
 
 # Function to create the Excel file if it doesn't exist
 def create_excel_file():
     if not os.path.exists(EXCEL_FILE):
-        wb = openpyxl.Workbook()
+        wb = openpyxl.Workbook() #write and binary
         ws = wb.active
         # Create headers (you can modify these based on your form fields)
         ws.append(["Form Type", "Name", "Age", "Height", "Weight", "Passing", "Shooting", "Dribbling", "Pace", "Physical", "Defending"])
@@ -46,10 +46,10 @@ def preprocess_data(df):
 
 def normalize(df, columns):
     """Min-Max Normalization."""
-    df_norm = df.copy()
+    df_norm = df.copy()  # create a copy of the DataFrame
     for col in columns:
-        col_min, col_max = df[col].min(), df[col].max()
-        df_norm[col] = (df[col] - col_min) / (col_max - col_min) if col_min != col_max else 0.5
+        col_min, col_max = df[col].min(), df[col].max() # find min and max values
+        df_norm[col] = (df[col] - col_min) / (col_max - col_min) if col_min != col_max else 0.5 # normalize
     return df_norm
 
 def topsis_ranking(df):
@@ -311,7 +311,7 @@ def thankyou():
     else:
         # Handle case when no data is available
         return render_template('sportmatrixFIN.html', player=None, analysis=None, thresholds={})
-
+# run the app
 if __name__ == '__main__':
     app.run(debug=True)
 ####-------------------------------------------------------------------------------------------------------------------

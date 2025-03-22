@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--Sets character encoding for proper text display-->
   <meta charset="UTF-8">
+  <!-- Enables responsive design for mobile and desktop -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SportMatrix</title> 
   <style>
@@ -115,6 +117,7 @@
 <body>
   <header>
     <nav>
+        <!-- Logo and navigation links -->
       <div class="logo">SportMatrix</div>
       <div class="nav-links">
         <a href="#footer" id="about-link">About</a>
@@ -123,10 +126,11 @@
   </header>
 
   <main>
+    <!-- Hero section with a welcome message and a call-to-action button -->
     <section class="hero">
       <h1>Welcome to SportMatrix</h1>
       <p>Elevate your game with cutting-edge sports analytics</p>
-      <a href ="/addplayer" class="cta-button">Add Player</a>
+      <a href ="/addplayer" class="cta-button">Add Player</a> <!-- Add a link to the Add Player page (sportmatrix2) -->
     </section>
     <div class="image-container">
         <img src="https://media.istockphoto.com/id/998509746/vector/football-player-kicking-ball-abstract-vector-drawing-soccer-athlete-isolated-silhouette-side.jpg?s=612x612&w=0&k=20&c=7mFG1jAeRyBta4sEVqRK-CaMLUIoslW7YiwRKP5TERE=" alt="Hero Image" class="hero-image">
@@ -141,7 +145,7 @@
         <p>Help: sportmatrix11@gmail.com</p>
         
     </footer>
-
+<!-- Add a script to scroll to the footer when the "About" link is clicked -->
     <script>
         document.getElementById('about-link').addEventListener('click', function(e) {
             e.preventDefault();

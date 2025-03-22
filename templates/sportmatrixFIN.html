@@ -336,6 +336,10 @@ if (analysisMessage.length > 0) {
   messageElement.textContent = 'Your performance on the given matrix attribute analysis is well in all areas! Have great game';
 }
 
+    document.getElementById('about-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('footer').scrollIntoView({behavior: 'smooth'});
+}); 
 </script>
 </body>
 </html>
