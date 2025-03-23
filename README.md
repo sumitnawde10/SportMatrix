@@ -32,6 +32,7 @@
    ```bash
    py app.py
    ```
+   **you can also create a python environment for better Dependency for the project deployement** 
 4. **Start the Project**
    - The command will return a development server link like this:
      ```
