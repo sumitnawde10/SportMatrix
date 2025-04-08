@@ -128,7 +128,7 @@
         margin-bottom: 20px;
     }    
     .scatter-container img {
-        max-width: 110%;
+        max-width: 95%;
         height: auto;
         border-radius: 8px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -159,6 +159,59 @@
         color: #fff;
         text-align: center;
         padding: 2rem;
+    }
+    .sub-table-wrapper {
+        max-height: 250px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        margin-top: 20px;
+        padding: 10px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .sub-table-wrapper table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: 'Roboto', sans-serif;
+        background-color: white;
+    }
+    
+    .sub-table-wrapper th, .sub-table-wrapper td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        font-size: 1.2rem;
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    .sub-table-wrapper th {
+        background-color: #0af4e8;
+        color: black;
+    }
+    
+    .sub-table-wrapper tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    
+    .sub-table-wrapper tr:hover {
+        background-color: #e0f7fa;
+        transition: background 0.3s ease;
+    }
+    
+    .sub-table-wrapper .rank {
+        font-weight: bold;
+        color: navy;
+    }
+    
+    .sub-table-wrapper .name {
+        font-weight: bold;
+        color: #333;
+    }
+    
+    .sub-table-wrapper .form {
+        font-weight: bold;
     }
   </style>
 </head>
@@ -212,12 +265,43 @@
 
    
 <div class="scatter-container">
-    <h2>Selection Score Scatter Plot</h2>
+    <h2 style="font-size: 1.7rem">Selection Score Scatter Plot</h2>
     {% if plot_url %}
         <img src="data:image/png;base64,{{ plot_url }}" alt="Hybrid Score Scatter Plot">
     {% else %}
         <p style="color: red;">⚠ No plot available. Please ensure player data exists.</p>
     {% endif %}
+    <h3 style="color: black; margin-top: 30px; font-size: 1.7rem;">Substitute Players</h3>
+    {% if substitutes is not none and not substitutes.empty %}
+<div class="substitute-section">
+    <div class="sub-table-wrapper">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Selection Score</th>
+                    <th>Potential Score</th>
+                    <th>Performance Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, row in substitutes.iterrows() %}
+                <tr>
+                    <td class="rank">{{ row["Final Rank"]|int }}</td>
+                    <td class="name">{{ row["Name"] }}</td>
+                    <td class="form">{{ row["Form Type"] }}</td>
+                    <td>{{ "%.2f"|format(row["Hybrid Score"]) }}</td>
+                    <td>{{ "%.2f"|format(row["Selection_Score"]) }}</td>
+                    <td>{{ "%.2f"|format(row["TOPSIS_Score"]*100) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
 </div>
 
 </div>

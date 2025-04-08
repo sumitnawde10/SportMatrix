@@ -193,8 +193,11 @@ def team_analysis():
         # Step 2: Get Only Top 12 Players
         top_players = get_top_players(df_final)
         df_top = pd.concat(top_players.values())  # Convert dictionary to DataFrame
+        
+        # Step 3: Get Substitute Players (all other players not in df_top)
+        df_substitutes = df_final[~df_final["Name"].isin(df_top["Name"])].sort_values(by="Final Rank")
 
-        # Step 3: Generate Scatter Plot (Only for Top 12 Players)
+        # Step 4: Generate Scatter Plot (Only for Top 12 Players)
         plt.figure(figsize=(10, 6))
         scatter = plt.scatter(
             df_top["Selection_Score"],  # X-Axis
@@ -235,7 +238,13 @@ def team_analysis():
         img.seek(0)
         plot_url = base64.b64encode(img.getvalue()).decode()
 
-        return render_template("sportmatrixTEAM.html", rankings=top_players, plot_url=plot_url)
+        return render_template(
+            "sportmatrixTEAM.html",
+            rankings=top_players,
+            substitutes=df_substitutes,
+            plot_url=plot_url
+        )
+
 
     except Exception as e:
         return str(e)
